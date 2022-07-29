@@ -6,9 +6,9 @@
 const allAccBtn = $('#allAccBtn');
 const container = $('.container');
 const submitBtn = $('#postBtn');
-const checking = $("#checking-input");
-const saving = $("#saving-input");
-const name = $("#name-input");
+const $checking = $("#checking-input");
+const $saving = $("#saving-input");
+const $name = $("#name-input");
 
 
 allAccBtn.on("click", () => {
@@ -28,18 +28,20 @@ allAccBtn.on("click", () => {
       });
 })
 
-// submitBtn.on("click", () => {
-//     let nameInput = name.val()
-//     console.log(JSON.stringify())
-//     $.ajax({
-//         type: "POST",
-//         url:'/api/update',
-//         data: JSON.stringify(`"name" : ${nameInput}`),
-//         success: res => {
-         
-//         },
-//         contentType: "application/json"
-//     })
-// })
+submitBtn.on("click", () => {
+  const checking = $checking.val();
+  const savings = $saving.val();
+  const name = $name.val();
+  const obj = {name, checking, savings};
+    $.ajax({
+        type: "POST",
+        url:'/api/update',
+        data: JSON.stringify(obj),
+        success: res => {
+          console.log(res)
+        },
+        contentType: "application/json"
+    })
+})
 
 

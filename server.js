@@ -31,8 +31,21 @@ server
         }
    })
    .post('/api/update', async(req, res) => {
-       console.log(req.body);
-       res.send(req.body);
+       if ((req.body["name"] || req.body["checking"] || req.body["savings"]) === '') {
+        console.log("undefined input")
+        res.send("undefined input")
+       } else {
+            const addToAccounts = (await pool.query('INSERT INTO accounts (checking, savings) VALUES ($1, $2) RETURNING *;', [req.body["savings"], req.body["checking"]]))
+
+            const addToNames = (await pool.query('INSERT INTO users (name) VALUES ($1) RETURNING *;', [req.body["name"]]))
+            
+            const accountId = addToAccounts.rows[0]["accountid"];
+            const userId = addToNames.rows[0]["userid"];
+
+            const addToBank = (await pool.query("INSERT INTO bank (accountid, userid) VALUES ($1,$2);", [accountId, userId]));
+        
+        res.send(req.body);
+       }
    })
 
 
