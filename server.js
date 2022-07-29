@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 
 
 dotenv.config();
+
+
 const server = express();
 server.use(express.json());
 server.use(express.static("static"));
@@ -52,7 +54,7 @@ server
 
 
 //listen to port ...
-const port = 8000;
+const port = process.env.port;
 server.listen(port, () => {
     console.log(`Express server is running on port: ${port}`);
 
