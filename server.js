@@ -1,8 +1,10 @@
 import express from "express"
 import { ReadyForQueryMessage } from "pg-protocol/dist/messages.js";
 import { pool } from "./database.js";
+import dotenv from "dotenv";
 
 
+dotenv.config();
 const server = express();
 server.use(express.json());
 server.use(express.static("static"));
@@ -55,3 +57,4 @@ server.listen(port, () => {
     console.log(`Express server is running on port: ${port}`);
 
 })
+
